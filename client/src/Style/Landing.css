@@ -1,0 +1,20 @@
+.siteInfo{
+	text-align: center;
+}
+
+.aboutText{
+	font-size: 20px;
+		margin: 0 auto;
+}
+.important{
+	font-weight: bold;
+}
+
+.quickGamesList{
+	color:black;
+	margin: 0 auto;
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+
+}

@@ -1,0 +1,21 @@
+.Browse-Ui{
+	display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+}
+
+.form-check-label
+{
+    padding-right: 25px;
+}
+
+.form-check{
+}
+
+ul#horizontal-list {
+	min-width: 696px;
+	list-style: none;
+	padding-top: 20px;
+	}
+	ul#horizontal-list li {
+		display: inline;
+	}
