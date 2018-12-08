@@ -1,124 +1,95 @@
 import React, { Component } from 'react';
-import fetch from 'cross-fetch';
 import SessionBox from './SessionBox';
-import Moment from 'react-moment';
-import '../Style/Sessions.css';
 
 
 class Sessions extends Component {
   // Initialize the state
   constructor(props){
     super(props);
-    this.handleButton = this.handleButton.bind(this);
-    this.handleRemove = this.handleRemove.bind(this);
+    this.filterSessions = this.filterSessions.bind(this);
     this.checkForDateRange = this.checkForDateRange.bind(this);
     this.state = {
+      filtertedList: [],
     }
-  }
-
-  handleButton(event){
-    if(this.props.isLoggedIn){
-      //tell server to add user to session
-      let data = [];
-      data.push(this.props.sessions[event.target.value]);
-      data.push(this.props.userEmail);
-      console.log(JSON.stringify(data));
-
-      fetch('/api/sessions/add', {
-        method: 'put',
-        headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(data),
-      });
-    window.location.reload();
-    }
-  }
-
-  handleRemove(event){
-    let data = [];
-    data.push(this.props.sessions[event.target.value]);
-    data.push(this.props.userEmail);
-    fetch('/api/sessions/remove', {
-      method: 'put',
-      headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    window.location.reload();
   }
 
   checkForDateRange(session){
+    //set up variables
     const today = new Date();
     const range = new Date();
     const sessionDate = new Date(session.sessionDate);
+
+    //set range to be today plus the number of days passed in
     range.setDate(range.getDate() + parseInt(this.props.dateRange));
 
+    //check if sessionDate is not past and that its before the end of range
     if(sessionDate.getTime() >= today.getTime() && sessionDate.getTime() <= range.getTime() ){
       return true;
     }
     return false;
   }
 
+  filterSessions(){
+
+    const selectedSearchLocID = parseInt(this.props.LocationID, 10);
+    let filterList = this.state.filtertedList;
+
+    //Filter out sessions that dont meet one of the two conditions
+    filterList = this.props.sessions.filter(session => (
+      //condition 1: the session is within search parameters
+      (session.sessionPop >= this.props.sessionPopMin
+        && this.checkForDateRange(session) 
+        && (selectedSearchLocID === 0 || selectedSearchLocID === session.locationID)
+      ) ||
+      //condition 2: the always show users games flag is true and user is involved in the game
+      (this.props.alwaysShowUserGames === true 
+        && ((session.sessionAttendes.indexOf(this.props.userEmail) > -1) || session.sessionOwnerEmail === this.props.userEmail)
+      )
+      ));
+
+      //further filter sessions if a search by name value is given
+    if(this.props.nameSearchQuery){
+      if(this.props.nameSearchQuery != ""){
+        filterList = filterList.filter(session => (
+          session.sessionName.toLowerCase().indexOf(this.props.nameSearchQuery.toLowerCase()) > -1
+        )); 
+      }
+    }  
+
+      this.state.filtertedList = filterList;
+  }
 
   render() {
-    const rows = [];
 
-    //don't display anything if data hasnt loaded yet
-    if(!this.props.sessions || !this.props.locations){
-      return(<div></div>)
+    //filter sessions
+    this.filterSessions();
+    let sessionBoxes = [];
+
+    //allow for passing a max display number
+    let displayMax = this.state.filtertedList.length;
+    if(this.props.maxSessions){
+      displayMax = Math.min(this.props.maxSessions, displayMax); 
     }
+ 
 
-    for(let i = 0; i < this.props.sessions.length; i++){
-
-      if(parseInt(this.props.LocationID) === 0 || parseInt(this.props.LocationID, 10) === this.props.sessions[i].locationID){
-        
-        //only render games that fit in search paramters
-        if(this.props.sessions[i].sessionPop >= this.props.sessionPopMin&& this.checkForDateRange(this.props.sessions[i])){
-          const userAction = [];
-
-          //additional info/action based on user-session relationship
-          if(this.props.isLoggedIn){
-            //check if user owned game
-            if(this.props.userEmail === this.props.sessions[i].sessionOwnerEmail){
-              userAction.push(<div className="session-action text-success"> Your running this game!</div>)
-            } //check if user is attending game
-            else if(this.props.sessions[i].sessionAttendes.indexOf(this.props.userEmail) > -1){ //user attending game
-              userAction.push(
-                <div className=" session-action"> 
-                  <button className="btn btn-secondary btn-sm" 
-                  onClick={this.handleRemove} value={i}> un-Attend! </button>
-                </div>
-              )
-            }
-            else{ // else give user button to attend game
-              userAction.push(
-                <div className="session-action"> 
-                  <button className="btn btn-success btn-sm" onClick={this.handleButton} value={i}> Attend! </button>
-                </div>)
-                }
-          }
-
-          //sessionBox  
-          rows.push(
-            <div className="row-small col-6">
-              {userAction[0]}<SessionBox locationID={this.props.sessions[i].locationID} keyValue={i}
-              sessions={this.props.sessions} locations={this.props.locations}/>
-            </div>)
-        }
-      }
-    }
-    return (
-      <div>
-        <div className="container-fluid">
-            <div className="col">
-              {rows}
-          </div>
-        </div>
+    for(let i = 0; i < displayMax; i++){
+      sessionBoxes.push(
+        <div>
+          <SessionBox 
+            locationID={this.state.filtertedList[i].locationID} 
+            keyValue={"SE"+ i.toString()}
+            session={this.state.filtertedList[i]} 
+            locations={this.props.locations}
+            userEmail={this.props.userEmail}
+          />
       </div>
+      )
+    }
+    
+    return (
+    <div>
+      {sessionBoxes}
+    </div>
     );
   }
 }

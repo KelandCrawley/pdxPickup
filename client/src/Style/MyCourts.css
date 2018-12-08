@@ -1,0 +1,29 @@
+
+.homeCourtName{
+    padding-left: 2px;
+}
+
+.homeCourt{
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.divider{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.GamesHeader {
+	text-align: center;
+}
+
+.postGameHeader{
+    text-align: center;
+}
+    
+.postForm{
+    max-width: 200px;
+    margin: 0 auto;
+}
+    
+    

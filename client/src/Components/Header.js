@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleButton from './GoogleButton';
+import '../Style/Header.css';
 
 class Header extends Component {
 constructor(props){
@@ -19,27 +20,48 @@ constructor(props){
 
 
 getSessionInfo(){
-  let test = [];
-  if(this.props.userSession.length > 0)
-  {
-    test.push(<span key="z002"> Welcome {this.props.userSession[0].userName}! </span>);
-    test.push(<span key="z003"><button className="logoutButton" onClick={this.handleLogout}>sign out</button></span>);
+  let sessionInfo = [];
+  if(this.props.userSession.length > 0){
+    sessionInfo.push(<span key="z002"> Welcome {this.props.userSession[0].userName}! </span>);
+    sessionInfo.push(<span key="z003"><button className="logoutButton text-danger" 
+    onClick={this.handleLogout}><small>sign out</small></button></span>);
   }
-  else
-  {
-    test.push(<GoogleButton key='z001'/>);
+  else{
+    sessionInfo.push(<GoogleButton key='z001'/>);
   }
-  return test;
+  return sessionInfo;
+}
+
+getTabs(){
+  let tabs = [];
+  let activeHome = false;
+  let activeBrowse = false;
+  let activeMyCourts = false;
+  switch(this.props.activeTab){
+    case 0:
+      activeHome = true;
+      break;
+    case 1:
+      activeBrowse = true;
+      break;
+    case 2:
+      activeMyCourts = true;
+      break;
+  }
+
+  tabs.push(<li className={(activeHome ? 'activeTab' : '')}><a href="/">Home</a></li>);
+  tabs.push(<li className={(activeBrowse ? 'activeTab' : '')}><a href="/Browse">Browse</a></li>);
+  tabs.push(<li className={(activeMyCourts ? 'activeTab' : '')}><a href="/MyCourts">My Courts</a></li>);
+
+  return tabs;
 }
 
    render() {
       return (
          <div>
-           <header className="App-header">
+           <header className="App-header fixed-top">
               <ul id="horizontal-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/Browse">Browse</a></li>
-                <li><a href="/MyCourts">My Courts</a></li>
+                {this.getTabs()}
                 <li>{this.getSessionInfo()}</li>
               </ul>
 

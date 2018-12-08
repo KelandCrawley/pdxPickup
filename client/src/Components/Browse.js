@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Session from './Sessions'
+import Sessions from './Sessions'
 import BrowseForm from './BrowseForm'
 import '../Style/Browse.css';
 
@@ -9,14 +9,18 @@ class Browse extends Component {
       super(props);
       this.handleParkLocationChange = this.handleParkLocationChange.bind(this);
       this.handleDateRangeChange = this.handleDateRangeChange.bind(this);
+      this.handleSessionNameChange = this.handleSessionNameChange.bind(this);
       this.handleSessionPopMinimumChange = this.handleSessionPopMinimumChange.bind(this);
       this.state ={
         parkLocation: 0,
         sessionPopMin: 0,
         dateRange: 10000,
+        sessionName: "",
       };
     }
-
+    handleSessionNameChange(sessionName){
+      this.setState({sessionName});
+    }
     handleParkLocationChange(parkLocation){
       this.setState({parkLocation});
     }
@@ -28,29 +32,40 @@ class Browse extends Component {
       this.setState({sessionPopMin});
     }
 
+  componentDidMount(){
+    this.props.setActiveTab(1);
+  }
+
   render() {
-    const parkLocation = this.state.parkLocation;
-    const sessionPopMin = this.state.sessionPopMin;
-    const dateRange = this.state.dateRange;
+
     return (
-
-      <div>
-        <div className="Browse-Ui"> 
-          <BrowseForm parkLocation={parkLocation}
-            onLocationChange={this.handleParkLocationChange} 
-            sessionPopMin={sessionPopMin} 
-            onSessionPopMinChange={this.handleSessionPopMinimumChange}
-            onDateRangeChange={this.handleDateRangeChange} 
-            locations={this.props.locations}/>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12 col-md-4"> 
+            <div className=" leftFix">
+              <BrowseForm parkLocation={this.state.parkLocation}
+                onLocationChange={this.handleParkLocationChange} 
+                sessionPopMin={this.state.sessionPopMin} 
+                onSessionPopMinChange={this.handleSessionPopMinimumChange}
+                onDateRangeChange={this.handleDateRangeChange} 
+                onSessionNameChange={this.handleSessionNameChange} 
+                sessionName={this.state.sessionName}
+                locations={this.props.locations}
+              />
+            </div>   
+          </div>
+          <div className="col-sm-12 col-md-6">
+              <Sessions LocationID={this.state.parkLocation} 
+                sessionPopMin={this.state.sessionPopMin} 
+                userEmail={this.props.userEmail}  
+                dateRange={this.state.dateRange} 
+                sessions={this.props.sessions} 
+                locations={this.props.locations}
+                nameSearchQuery={this.state.sessionName}
+                alwaysShowUserGames={false}
+              />
+            </div>
         </div>
-
-        <Session LocationID={parkLocation} 
-          sessionPopMin={sessionPopMin} 
-          isLoggedIn={this.props.isLoggedIn}
-          userEmail={this.props.userEmail}  
-          dateRange={dateRange} 
-          sessions={this.props.sessions} 
-          locations={this.props.locations}/>
       </div>
     );
   };

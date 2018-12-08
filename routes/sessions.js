@@ -48,7 +48,8 @@ router.post('/api/sessions', ensureAuthenticated, function(req, res){
 	{
 		//add to database
 		var newSession = new sessionModel({ sessionName: req.body.sessionName, sessionPop: req.body.attendesInParty, 
-			locationID: req.body.parkLocation , sessionOwnerEmail: req.body.userEmail, sessionDate: moment(req.body.dateTime)});
+			locationID: req.body.parkLocation , sessionOwnerEmail: req.body.userEmail, sessionDate: moment(req.body.dateTime),
+			sessionDescription: req.body.sessionDescription});
 		  newSession.save(function (err) {
          if(err){
               var err = new  Error("Error: newSession.save");
@@ -63,7 +64,7 @@ router.post('/api/sessions', ensureAuthenticated, function(req, res){
 
 
 //add a user to a session
-router.put('/api/sessions/add', ensureAuthenticated, function(req, res){
+router.put('/api/sessions/addUser', ensureAuthenticated, function(req, res){
 	console.log("at add user to session!");
 	let sessionID = req.body[0]._id;
 	var id = mongoose.Types.ObjectId(sessionID);
@@ -93,7 +94,7 @@ router.put('/api/sessions/add', ensureAuthenticated, function(req, res){
 });
 
 //removes a user from a session
-router.put('/api/sessions/remove', ensureAuthenticated, function(req, res){
+router.put('/api/sessions/removeUser', ensureAuthenticated, function(req, res){
 	console.log("Got to remove Ateendee!");
 	let sessionID = req.body[0]._id;
 	var id = mongoose.Types.ObjectId(sessionID);

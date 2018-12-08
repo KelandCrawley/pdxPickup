@@ -1,21 +1,18 @@
-.Browse-Ui{
-	display: table;   /* Allow the centering to work */
-	margin: 0 auto;
+/*desktops */
+@media only screen 
+and (min-width : 1224px) {
+	.leftFix{
+		position: fixed;
+		top: 150px;
+		left: 50px;
+		}
 }
 
-.form-check-label
-{
-    padding-right: 25px;
+/*less than desktops */
+@media only screen 
+and (max-width : 1223px) {
+	.leftFix{
+		position: relative;
+		}
 }
 
-.form-check{
-}
-
-ul#horizontal-list {
-	min-width: 696px;
-	list-style: none;
-	padding-top: 20px;
-	}
-	ul#horizontal-list li {
-		display: inline;
-	}

@@ -1,0 +1,48 @@
+.sessionBox{
+    position: relative;
+    max-width: 500px;
+    min-height: 145px;
+    background-color: #DDDDDD;
+    padding: 25px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    
+    -moz-box-shadow:    3px 3px 5px 4px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 4px #ccc;
+    box-shadow:         3px 3px 5px 4px #ccc;
+}
+
+div.sessionBox:hover {
+    -moz-box-shadow:    3px 3px 5px 1px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 1px #ccc;
+    box-shadow:         3px 3px 5px 1px #ccc; 
+}
+
+div.sessionBox:active {
+    -moz-box-shadow:    3px 3px 5px 8px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 8px #ccc;
+    box-shadow:         3px 3px 5px 8px #ccc; 
+}
+
+
+.sessionInfo{
+	position: absolute;
+            top: 2em;
+ position: absolute;
+            left: 12em;
+}
+
+
+.sessionName{
+    font-weight: 550;
+    font-size: 22px;
+}
+
+.sessionPop{
+    position: absolute;
+               right: 2em;
+               bottom: 2px;
+   }
+   

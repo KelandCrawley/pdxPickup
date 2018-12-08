@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css';
+import '../Style/Header.css';
 
 class GoogleButton extends Component {
   render() {

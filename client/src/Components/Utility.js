@@ -1,7 +1,7 @@
   import React from 'react';
   import Moment from 'react-moment';
 
-  export function getLocationImg(locationID){
+  export function getLocationImg(locationID, height="80", width="120"){
   let image = [];
   let imageAdress =  require('../ParkPics/ArgayDefault.jpg');
 	switch (locationID) {
@@ -18,7 +18,7 @@
 	  default: imageAdress = require('../ParkPics/AlbertaBball.jpg');
 	}
 
-  image.push(<img key="y001" src={imageAdress} alt="" height="80" width="120" />);
+  image.push(<img key="y001" src={imageAdress} alt="" height={height} width={width} />);
   return image;
 }
 

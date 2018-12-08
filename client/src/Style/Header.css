@@ -1,0 +1,74 @@
+.App-header {
+    background-color: #333;
+    color: white;
+  }
+
+  .activeTab{
+	text-decoration: underline;
+}
+
+ul#horizontal-list {
+	list-style: none;
+	}
+	ul#horizontal-list li {
+		display: inline;
+	}
+
+a {
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+	padding-right: 30px;
+}
+
+.logoutButton{
+	margin-left: 5px;
+	padding: 2px;
+	background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+
+    color: white;
+}
+
+/*
+Google button
+*/
+
+
+a {
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+   }
+   .button {
+    display: inline-block;
+    max-width: 300px;
+    border: 0;
+    padding: 0 18px;
+    text-align: center;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-font-feature-settings: "liga" on;
+    color: white !important;
+    fill: rgba(0, 0, 0, 0.84) !important;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.05);
+    font: inherit;
+    outline: none;
+   }
+   .button .svgIcon {
+    vertical-align: middle;
+    fill: rgba(0, 0, 0, 0.54);
+    padding-right: 4px;
+    height: 37px;
+    display: inline-block;
+   }
+   
+
+.button-label-black
+{
+	 color: black !important;
+}

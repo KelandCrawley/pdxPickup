@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 let locationSchema = new mongoose.Schema({
 	locationName: String,
 	locationImage: String,
+	locationAddress: String, 
 	locationID: Number,
 	indoorFlag: Boolean
 });

@@ -6,7 +6,8 @@ let sessionSchema = new mongoose.Schema({
 	locationID: Number,
 	sessionDate: Date,
 	sessionOwnerEmail: String,
-	sessionAttendes: []
+	sessionAttendes: [],
+	sessionDescription: [],
 });
 var sessionModel = mongoose.model('sessionModel', sessionSchema);
 

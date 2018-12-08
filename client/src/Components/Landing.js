@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import SessionBox from './SessionBox';
+import Sessions from './Sessions'
+import '../Style/Landing.css';
 
 class Landing extends Component {
 	constructor(props){
     super(props);
-    this.state ={
-    }
+  }
+
+  componentDidMount(){
+    this.props.setActiveTab(0);
   }
 
   render() {
@@ -18,54 +21,46 @@ class Landing extends Component {
     
 
     // left side, upcoming games
-
-    if(this.props.sessions && this.props.locations){
-      LandingLeft.push(
-        <div key="b007" className="quickGamesList">
-          <h2> Upcoming Games </h2> 
-        </div>
-      );
-
-      //create up to 3 session boxes
-      for(let i = 0; i < this.props.sessions.length && i < 3; i++) {
-        LandingLeft.push(
-          <div key="b008" className="row-small col-6">
-            <SessionBox 
-            locationID={this.props.sessions[i].locationID} keyValue={i}
-            sessions={this.props.sessions} locations={this.props.locations}
-            />
-          </div>
-        ) 
-      }
-    }
+    LandingLeft.push(
+      <div key="b007" className="quickGamesList">
+        <h2> Upcoming Games </h2> 
+      </div>
+    );
 
     //right side, site info
     LandingRight.push(
-      <div key="b005" className="aboutText text-primary">
-        <span className="important"><div>This site is currently for demonstrative purposes only!</div>
+      <div key="b005" className="aboutText">
+        <h4><div>This site is for demonstrative purposes only!</div>
           <div> None of the games on this site are real!</div> 
-        </span>
-        <span> Feel free to sign in with google and post fake data and/or test the site. 
+          <div>
+           Feel free to sign in with google and post fake data and/or test the site. 
           Send any feedback to kelandcrawley@yahoo.com. 
-        </span>
+          </div>
+        </h4>
       </div>
     );
     		
 
     return (
-    	<div>
-    	  {siteInfo}
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-12 col-md-6">
-              {LandingLeft}
-            </div>
-            <div className="col-6">
-              {LandingRight}  
-            </div>
+    	<div className="container">
+        {siteInfo}
+        <div className="row">
+          <div className="col-sm-12 col-md-6">
+            {LandingLeft}
+            <Sessions LocationID={0} 
+              sessionPopMin={0} 
+              userEmail={this.props.userEmail}  
+              dateRange={10000} 
+              sessions={this.props.sessions} 
+              locations={this.props.locations}
+              maxSessions={3}
+              alwaysShowUserGames={true}/>
           </div>
-        </div>
+          <div className="col-sm-12 col-md-6">
+            {LandingRight}  
+          </div>
       </div>
+    </div>  
     );
   }
 }

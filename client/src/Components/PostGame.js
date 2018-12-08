@@ -10,15 +10,24 @@ class PostGame extends Component {
       this.handleAttendesChange = this.handleAttendesChange.bind(this);
       this.handleDateTimeChange = this.handleDateTimeChange.bind(this);
       this.handleSessionNameChange = this.handleSessionNameChange.bind(this);
+      this.handleSessionDescriptionChange = this.handleSessionDescriptionChange.bind(this);
+      this.getLocationNamesArray = this.getLocationNamesArray.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.state ={
         sessionName: "Friendly Game!",
         parkLocation: 1,
         attendesInParty: 1,
         dateTime: Date,
-        userEmail: this.props.userSession[0].userEmail
+        sessionDescription: "",
+        locationNames: [],
       };
     }
+
+    componentWillMount(){
+      let locationNames =  this.getLocationNamesArray();
+      this.setState({locationNames: locationNames});
+    }
+
 
     handleSubmit(event) {
       let data = this.state;
@@ -52,6 +61,10 @@ class PostGame extends Component {
       this.setState({attendesInParty: newAttendesInParty.target.value});
     }
 
+    handleSessionDescriptionChange(sessionDescription){
+      this.setState({sessionDescription: sessionDescription.target.value});
+    }
+
     getLocationNamesArray(){
       let locationNames = [];
       if(this.props.locations){
@@ -65,24 +78,26 @@ class PostGame extends Component {
 
 
   render() {
-      let locationNames = getLocationNamesArray();
 
     return (
 
       //Post Game form
       <div>
-        <h3 className="postGame-Header"> Post a game </h3>
+        <h3 className="postGameHeader"> Post a game </h3>
           <div className="postForm"> 
             <form onSubmit={this.handleSubmit} action='/MyCourts'>
               <label>Game Name</label>
-              <input className="form-control" type="text" value={this.state.sessionName} onChange={this.handleSessionNameChange} />
+                <input className="form-control" type="text" value={this.state.sessionName} onChange={this.handleSessionNameChange} />
               <label>Location</label>
-              <select className="form-control" value={this.props.parkLocation} onChange={this.handleParkLocationChange}>
-                {locationNames.map((x,y) => <option key={y} value={y + 1}>{x}</option>)}
-              </select>
+                <select className="form-control" value={this.props.parkLocation} onChange={this.handleParkLocationChange}>
+                {this.state.locationNames.map((x,y) => <option key={"PG"+ y.toString()} value={y + 1}>{x}</option>)}
+                </select>
               <label>How many players are you bringing?</label>
-              <input className="form-control" type="number" value={this.state.attendesInParty} onChange={this.handleAttendesChange} step="any"  />
+                <input className="form-control" type="number" value={this.state.attendesInParty} onChange={this.handleAttendesChange} step="any"  />
+              <label for="exampleTextarea">Short Description</label>
+                <textarea class="form-control" value={this.state.sessionDescription} onChange={this.handleSessionDescriptionChange} rows="3"></textarea>
               <DateTime input={ false } selected={this.state.dateTime} onChange={ this.handleDateTimeChange } />
+              <div className="divider"></div>
               <button className="btn btn-primary">Post Game!</button>
           </form>
         </div>

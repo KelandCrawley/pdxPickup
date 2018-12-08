@@ -212,12 +212,3 @@ td.rdtYear:hover {
 .rdtTime td {
   cursor: default;
 }
-
-.postForm{
-        max-width: 200px;
-    margin: 0 auto;
-}
-
-.postGame-Header{
-  text-align: center;
-}

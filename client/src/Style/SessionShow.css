@@ -1,0 +1,40 @@
+
+.sessionShow{
+    max-width: 500px;
+    min-height: 600px;
+    background-color: #DDDDDD;
+    margin: 0 auto;
+
+    -moz-box-shadow:    3px 3px 5px 4px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 4px #ccc;
+    box-shadow:         3px 3px 5px 4px #ccc;
+}
+
+.centerTitle{
+    text-align: center;
+    font-weight: 550;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.centerDescendingText{
+    text-align: center;
+
+}
+
+.centerBox{
+    display: block;
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+}
+
+.SessionComment{
+    margin-top: 4px;
+}
+
+.topPad{
+    margin-top: 4px;
+}

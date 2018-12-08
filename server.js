@@ -93,7 +93,8 @@ app.use(locationsRoutes);
 
 app.listen(port, function()
 {
-	console.log("listening");
+  console.log("listening");
+  //clear old games on start up
 	clearOldGames();
 });
 
