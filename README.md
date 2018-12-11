@@ -19,17 +19,19 @@ With my first major pass at improving PDX Pickup i focused on the design and cod
 
 --Added search by name to the browse form: Pretty straight forward. Thought this would be useful if the site was in real use.
 
---Mobile responsiveness fixes: With the updated design i needed to update the mobile responsiveness. While the site layout if flexible for mobile more will be done to optimize the mobile experience in future updates.
+--Mobile responsiveness fixes: With the updated design i needed to update the mobile responsiveness. While the site layout is flexible for mobile at the moment, more will be done to optimize the mobile experience in future updates.
 
---Code refactoring and clean up: I have been learning a lot more about how react works so i decided to make some code improvements. I focused on hard to follow code and anything that might cause future problems.
+--Code refactoring and clean up: I have been learning a lot more about the how and why of react so i decided to make some code improvements. I focused on hard to follow code and anything that might cause future problems.
+
+Further Detail of code improvements:
 
 --Broke up large components that did too much into smaller components with a more focused responsibility.
 
-  --Made render functions cleaner.
+--Made render functions cleaner.
 
-  --Made better use of componetDidUpdate and componetDidMount
+ --Made better use of componetDidUpdate and componetDidMount
 
-  --Refactored code that called setState outside of componetDidMount
+ --Refactored code that called setState outside of componetDidMount
 
-  --Refactored code structure to avoid state and long pass down prop chains when possible
+ --Refactored code structure to avoid state and long pass down prop chains when possible. (looking at adding redux soon and overhauling how i do state)
   
